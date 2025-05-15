@@ -1,0 +1,227 @@
+/* AdminDashboard.css */
+
+.admin-dashboard {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .dashboard-header {
+    margin-bottom: 30px;
+    border-bottom: 2px solid #4a6cf7;
+    padding-bottom: 15px;
+  }
+  
+  .dashboard-header h1 {
+    color: #333;
+    font-size: 28px;
+    margin: 0;
+  }
+  
+  /* Authentication Form */
+  .auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+  }
+  
+  .auth-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .auth-form h2 {
+    margin-top: 0;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.2s;
+  }
+  
+  .form-group input:focus {
+    border-color: #4a6cf7;
+    outline: none;
+  }
+  
+  .login-btn {
+    background-color: #4a6cf7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s;
+  }
+  
+  .login-btn:hover {
+    background-color: #3857e0;
+  }
+  
+  .error-message {
+    color: #e74c3c;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  /* Dashboard Content */
+  .dashboard-content {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .dashboard-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .refresh-btn {
+    background-color: #4a6cf7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .refresh-btn:hover {
+    background-color: #3857e0;
+  }
+  
+  .lead-count {
+    font-size: 16px;
+    font-weight: 600;
+    color: #555;
+  }
+  
+  /* Table Styles */
+  .leads-table-container {
+    overflow-x: auto;
+    margin-bottom: 30px;
+  }
+  
+  .leads-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .leads-table th, 
+  .leads-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .leads-table th {
+    background-color: #f5f7ff;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .leads-table tbody tr:hover {
+    background-color: #f9faff;
+  }
+  
+  .leads-table td a {
+    color: #4a6cf7;
+    text-decoration: none;
+  }
+  
+  .leads-table td a:hover {
+    text-decoration: underline;
+  }
+  
+  .no-leads {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+    font-style: italic;
+  }
+  
+  .loading {
+    text-align: center;
+    padding: 30px;
+    color: #555;
+    font-size: 16px;
+  }
+  
+  /* Export Section */
+  .export-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+  }
+  
+  .export-section h3 {
+    margin-top: 0;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .export-buttons {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .export-btn {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+  }
+  
+  .export-btn:hover {
+    background-color: #219653;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .export-buttons {
+      flex-direction: column;
+    }
+    
+    .export-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
