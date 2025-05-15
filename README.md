@@ -161,7 +161,7 @@ Here are some screenshots showcasing the chatbot's functionality:
 ### 1. Frontend Interface
 ![Frontend Interface](https://github.com/i211534/MERN-lead-generation-bot/blob/main/FrontendInterface.PNG)
 
-### 2. Backend Logs
+### 2. Logs
 ![Backend Logs](https://github.com/i211534/MERN-lead-generation-bot/blob/main/backendlogs.PNG)
 
 ### 3. Bot in Action
