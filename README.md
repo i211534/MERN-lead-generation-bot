@@ -1,6 +1,6 @@
 # Lead Generation Chatbot - Setup & Configuration Guide
 
-This project provides a customizable lead generation chatbot with a React frontend and Node.js/Express backend. The chatbot collects visitor information through an interactive chat interface and securely stores it in a Neon Database (PostgreSQL).
+This project implements a customizable lead generation chatbot with a React frontend and a Node.js/Express backend. The bot collects visitor information through a chat interface and stores it in a Neon database.
 
 ## Project Structure
 
@@ -10,9 +10,9 @@ lead-generation-bot/
 │   ├── public/
 │   └── src/
 │       ├── components/
-│       │   ├── LeadBot.js  # Chatbot component
-│       │   └── LeadBot.css # Chatbot styles
-│       ├── App.js          # Demo app with chatbot integration
+│       │   └── LeadBot.js  # Bot component
+│       │   └── LeadBot.css # Bot styles
+│       ├── App.js          # Demo app with bot integration
 │       └── ...
 ├── server.js              # Express backend
 ├── .env                   # Environment variables
@@ -22,9 +22,9 @@ lead-generation-bot/
 ## Setup Instructions
 
 ### Prerequisites
-- **Node.js** (v14 or newer)
-- **Neon Database** (PostgreSQL hosted database)
-- **npm** or **yarn**
+- Node.js (v14+)
+- Neon (PostgreSQL as a Service)
+- npm or yarn
 
 ### Step 1: Clone the repository
 
@@ -45,17 +45,17 @@ npm install
 cd ..
 ```
 
-### Step 3: Configure Environment Variables
+### Step 3: Environment Configuration
 
-Create a `.env` file in the root directory with the following configuration:
+Create a `.env` file in the root directory with the following variables:
 
 ```
 # Server Configuration
 PORT=5000
 NODE_ENV=development
 
-# Neon Database (PostgreSQL) Connection
-DATABASE_URL=postgresql://<username>:<password>@<host>:<port>/<database-name>
+# Neon Database Connection
+NEON_DATABASE_URL=postgresql://<username>:<password>@<region>.neon.tech/leadgen
 
 # Email Configuration (for lead notifications)
 EMAIL_SERVICE=gmail
@@ -67,11 +67,11 @@ ADMIN_EMAIL=admin@example.com
 ADMIN_API_KEY=your-secure-api-key
 ```
 
-> **Note:** Replace `<username>`, `<password>`, `<host>`, `<port>`, and `<database-name>` with your Neon Database credentials. Neon typically provides an SSL-enabled connection string, so ensure SSL is properly configured as required.
+Note: For Gmail, you'll need to use an App Password if you have 2FA enabled.
 
-### Step 4: Run the Application
+### Step 4: Run the application
 
-#### Development Mode (Separate Servers)
+#### Development Mode (separate servers)
 
 Terminal 1 - Backend:
 ```bash
@@ -96,84 +96,35 @@ cd ..
 NODE_ENV=production npm start
 ```
 
----
-
-## Screenshots
-
-Add screenshots here to demonstrate key aspects of the application setup and functionality:
-
-1. **Application Running (Frontend and Backend)**  
-   _Include a screenshot of the app interface and backend logs here._
-
-2. **Chatbot Interface**  
-   _Include an image of the chatbot in action._
-
-3. **Database Entries**  
-   _Add a screenshot showing stored lead data in Neon Database._
-
-4. **Email Notification**  
-   _Provide a screenshot of the email notification for a new lead._
-
----
-
 ## Customization Options
 
 ### 1. Edit Conversation Flow
 
-To tailor the chatbot’s conversation flow, modify the `stages` array in `client/src/components/LeadBot.js`:
+To customize the conversation flow, modify the `stages` array in `client/src/components/LeadBot.js`:
 
 ```javascript
 const stages = [
-  { message: "Welcome to our site!", type: "welcome" },
-  { message: "What is your name?", type: "name" },
-  // Add or modify stages as needed
+  { message: "Custom welcome message", type: "welcome" },
+  { message: "Custom name question", type: "name" },
+  // Add more stages or modify existing ones
 ];
 ```
 
 ### 2. Styling
 
-Customize the chatbot's appearance by editing the `LeadBot.css` file to align with your brand’s colors and design guidelines.
+Edit the `LeadBot.css` file to match your brand colors and styling preferences.
 
-### 3. Backend Integration for Neon Database
+### 3. Backend Integration
 
-- Use the `pg` Node.js client to connect to your Neon Database. Replace MongoDB code in `server.js` with the following:
+You can connect the lead data to various services:
 
-```javascript
-const { Pool } = require('pg');
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false, // Required for Neon
-  },
-});
-
-pool.query('SELECT NOW()', (err, res) => {
-  if (err) {
-    console.error('Error connecting to database', err);
-  } else {
-    console.log('Database connected:', res.rows[0]);
-  }
-});
-```
-
-- Update the schema and queries to match PostgreSQL syntax. For example, create a table to store leads:
-
-```sql
-CREATE TABLE leads (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  message TEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
-- Replace MongoDB queries with SQL queries (e.g., `INSERT INTO` and `SELECT` statements).
+- Adjust the database schema in `server.js` to accommodate additional fields
+- Modify the email notification template in `server.js`
+- Add integrations with CRM systems (e.g., HubSpot, Salesforce)
 
 ### 4. Email Templates
 
-For more advanced email notifications, use HTML templates:
+For more advanced email templates, you can use HTML emails:
 
 ```javascript
 const mailOptions = {
@@ -182,39 +133,52 @@ const mailOptions = {
     <h1>New Lead Generated</h1>
     <p><strong>Name:</strong> ${name}</p>
     <p><strong>Email:</strong> ${email}</p>
-    <!-- Add more fields as necessary -->
+    <!-- More fields -->
   `
 };
 ```
 
----
-
 ## API Endpoints
 
-| Endpoint      | Method | Description          | Authentication |
-|---------------|--------|----------------------|----------------|
-| `/api/lead`   | POST   | Submit a new lead    | None           |
-| `/api/leads`  | GET    | Retrieve all leads   | API Key        |
-
----
+| Endpoint     | Method | Description           | Authentication |
+|--------------|--------|-----------------------|----------------|
+| `/api/lead`  | POST   | Submit a new lead     | None           |
+| `/api/leads` | GET    | Get all leads         | API Key        |
 
 ## Deployment
 
-You can deploy this application on various platforms, such as:
+This application can be deployed to:
 
-- **Heroku**
-- **Vercel** (frontend) + **Heroku** (backend)
-- **AWS**, **GCP**, or **Azure**
+- Heroku
+- Vercel (frontend) + Render/Heroku (backend)
+- AWS/GCP/Azure
 - Any platform supporting Node.js applications
 
----
+## Proof of Functionality
+
+Here are some screenshots showcasing the chatbot's functionality:
+
+### 1. Frontend Interface
+![Frontend Interface](https://github.com/i211534/MERN-lead-generation-bot/blob/main/FrontendInterface.PNG)
+
+### 2. Backend Logs
+![Backend Logs](https://github.com/i211534/MERN-lead-generation-bot/blob/main/backendlogs.PNG)
+
+### 3. Bot in Action
+![Bot in Action - Step 1](https://github.com/i211534/MERN-lead-generation-bot/blob/main/botinaction.PNG)
+![Bot in Action - Step 2](https://github.com/i211534/MERN-lead-generation-bot/blob/main/botinaction2.PNG)
+![Bot in Action - Step 3](https://github.com/i211534/MERN-lead-generation-bot/blob/main/botinaction3.PNG)
+
+### 4. Email Verification
+![Email Verification](https://github.com/i211534/MERN-lead-generation-bot/blob/main/emailverify.PNG)
+
+### 5. Lead Data
+![Lead Data](https://github.com/i211534/MERN-lead-generation-bot/blob/main/leaddata.PNG)
 
 ## License
 
-This project is licensed under the MIT License. For more details, refer to the `LICENSE` file.
-
----
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Support
 
-If you have any questions or encounter issues, please open an issue in this repository or reach out to the support team.
+For questions or issues, please open an issue in the repository or contact the support team.
